@@ -10,26 +10,26 @@ const MissionSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 75%",
-          end: "center center",
-          scrub: false,
-        },
-      });
+      const tl = gsap.timeline({ paused: true });
 
       tl.fromTo(".mission-title", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out" })
         .fromTo(".mission-line", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, "-=0.5")
         .fromTo(".mission-text", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" }, "-=0.3")
         .fromTo(".mission-btn", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.2");
 
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 75%",
+        onEnter: () => tl.play(),
+        onLeaveBack: () => tl.reverse(),
+      });
+
       gsap.fromTo(
         ".mission-img",
         { x: 80, opacity: 0 },
         {
           x: 0, opacity: 1, duration: 1.2, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 70%", toggleActions: "play none none reverse" },
         }
       );
 
@@ -40,6 +40,7 @@ const MissionSection = () => {
           start: "top bottom",
           end: "bottom top",
           scrub: 1,
+          toggleActions: "play none none reverse",
         },
       });
     }, sectionRef);
@@ -68,16 +69,16 @@ const MissionSection = () => {
             By designing and developing custom apps and mobile web-apps, we act as a guide — 
             leading our clients to success.
           </p>
-          <button className="mission-btn mt-8 px-8 py-3 border border-foreground text-foreground font-body text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300 opacity-0">
+          <button className="mission-btn mt-8 px-8 py-3 border border-foreground text-foreground font-body text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300 opacity-0 hover:scale-105 active:scale-95">
             Let's Build!
           </button>
         </div>
 
-        <div className="mission-img overflow-hidden rounded-lg opacity-0">
+        <div className="mission-img overflow-hidden rounded-lg opacity-0 hover:shadow-2xl transition-shadow duration-500">
           <img
             src={missionImg}
             alt="Mission lab"
-            className="w-full h-[500px] lg:h-[600px] object-cover"
+            className="w-full h-[350px] sm:h-[450px] lg:h-[600px] object-cover hover:scale-105 transition-transform duration-700"
           />
         </div>
       </div>

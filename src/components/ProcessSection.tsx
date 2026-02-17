@@ -22,7 +22,7 @@ const ProcessSection = () => {
         { y: 60, opacity: 0 },
         {
           y: 0, opacity: 1, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 70%", toggleActions: "play none none reverse" },
         }
       );
 
@@ -31,7 +31,7 @@ const ProcessSection = () => {
         { y: 50, opacity: 0 },
         {
           y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: "power2.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 60%", toggleActions: "play none none reverse" },
         }
       );
 
@@ -61,11 +61,11 @@ const ProcessSection = () => {
           Our Process
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {steps.map((step) => (
             <div
               key={step.num}
-              className="process-step group p-6 rounded-lg border border-border bg-card/60 backdrop-blur-sm hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 opacity-0"
+              className="process-step group p-6 rounded-lg border border-border bg-card/60 backdrop-blur-sm hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl opacity-0 cursor-pointer"
             >
               <span className="font-display text-4xl font-bold text-gradient">{step.num}</span>
               <h3 className="font-display text-xl font-semibold text-foreground mt-4 mb-2">{step.title}</h3>

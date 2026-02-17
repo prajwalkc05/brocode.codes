@@ -25,7 +25,7 @@ const PortfolioSection = () => {
         { y: 60, opacity: 0 },
         {
           y: 0, opacity: 1, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%", toggleActions: "play none none reverse" },
         }
       );
 
@@ -34,7 +34,7 @@ const PortfolioSection = () => {
         { y: 60, opacity: 0 },
         {
           y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: "power2.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 60%", toggleActions: "play none none reverse" },
         }
       );
     }, sectionRef);
@@ -50,11 +50,11 @@ const PortfolioSection = () => {
           Portfolio
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {projects.map((project) => (
             <div
               key={project.title}
-              className="port-card group relative rounded-lg overflow-hidden cursor-pointer opacity-0"
+              className="port-card group relative rounded-lg overflow-hidden cursor-pointer opacity-0 hover:shadow-2xl transition-shadow duration-500"
             >
               <div className="relative h-[350px] md:h-[420px] overflow-hidden">
                 <img

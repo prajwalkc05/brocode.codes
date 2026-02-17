@@ -15,7 +15,7 @@ const AdvantagesSection = () => {
         { x: -80, opacity: 0 },
         {
           x: 0, opacity: 1, duration: 1.2, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 70%", toggleActions: "play none none reverse" },
         }
       );
 
@@ -24,7 +24,7 @@ const AdvantagesSection = () => {
         { y: 60, opacity: 0 },
         {
           y: 0, opacity: 1, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 65%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 65%", toggleActions: "play none none reverse" },
         }
       );
 
@@ -33,7 +33,7 @@ const AdvantagesSection = () => {
         { y: 40, opacity: 0 },
         {
           y: 0, opacity: 1, duration: 0.8, stagger: 0.25, ease: "power2.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 60%", toggleActions: "play none none reverse" },
         }
       );
 
@@ -58,11 +58,11 @@ const AdvantagesSection = () => {
     >
       <div className="absolute inset-0 bg-secondary/50" />
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="adv-img overflow-hidden rounded-lg order-2 lg:order-1">
+        <div className="adv-img overflow-hidden rounded-lg order-2 lg:order-1 hover:shadow-2xl transition-shadow duration-500">
           <img
             src={advantagesImg}
             alt="Industrial advantages"
-            className="w-full h-[500px] lg:h-[600px] object-cover"
+            className="w-full h-[350px] sm:h-[450px] lg:h-[600px] object-cover hover:scale-105 transition-transform duration-700"
           />
         </div>
 
@@ -73,7 +73,7 @@ const AdvantagesSection = () => {
           <div className="h-[2px] bg-muted-foreground/30 w-24 mt-6 mb-10" />
 
           <div className="space-y-8">
-            <div className="adv-block opacity-0">
+            <div className="adv-block opacity-0 hover:translate-x-2 transition-transform duration-300">
               <h3 className="font-display text-xl font-bold text-foreground mb-2">We've Been There.</h3>
               <p className="font-body text-muted-foreground leading-relaxed">
                 In just over four years we've founded our own start-up, built over 100 app projects
@@ -81,7 +81,7 @@ const AdvantagesSection = () => {
               </p>
             </div>
 
-            <div className="adv-block opacity-0">
+            <div className="adv-block opacity-0 hover:translate-x-2 transition-transform duration-300">
               <h3 className="font-display text-xl font-bold text-foreground mb-2">Boldly Transparent.</h3>
               <p className="font-body text-muted-foreground leading-relaxed">
                 We know how easy it is for complex projects like custom applications to go overbudget.
