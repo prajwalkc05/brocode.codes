@@ -6,10 +6,12 @@ import processImg from "@/assets/process-sunset.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
-  { num: "01", title: "Discovery", desc: "We learn about your vision, goals, and users." },
-  { num: "02", title: "Design", desc: "Crafting beautiful, intuitive interfaces." },
-  { num: "03", title: "Develop", desc: "Building scalable, modern technology." },
-  { num: "04", title: "Deploy", desc: "Launch, optimize, and iterate." },
+  { num: "01", title: "Discuss Requirements", desc: "Share your project vision and technical requirements" },
+  { num: "02", title: "Scope & Confirmation", desc: "Receive detailed proposal with timeline and pricing" },
+  { num: "03", title: "Development", desc: "Expert team builds with regular milestone updates" },
+  { num: "04", title: "Review & Refine", desc: "Test and provide feedback for revisions" },
+  { num: "05", title: "Delivery", desc: "Complete source code and documentation" },
+  { num: "06", title: "Post-Delivery Support", desc: "Ongoing support and technical guidance" },
 ];
 
 const ProcessSection = () => {
@@ -61,7 +63,7 @@ const ProcessSection = () => {
           Our Process
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {steps.map((step) => (
             <div
               key={step.num}
