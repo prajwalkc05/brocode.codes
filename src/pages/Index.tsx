@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import MissionSection from "@/components/MissionSection";
 import AdvantagesSection from "@/components/AdvantagesSection";
 import ProcessSection from "@/components/ProcessSection";
+import PortfolioSection from "@/components/PortfolioSection";
 import CTASection from "@/components/CTASection";
 import useSmoothScroll from "@/hooks/use-smooth-scroll";
 
@@ -16,6 +17,7 @@ const Index = () => {
       <div id="mission"><MissionSection /></div>
       <div id="advantages"><AdvantagesSection /></div>
       <div id="process"><ProcessSection /></div>
+      <div id="portfolio"><PortfolioSection /></div>
       <div id="cta"><CTASection /></div>
     </main>
   );
