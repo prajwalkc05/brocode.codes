@@ -4,8 +4,11 @@ import MissionSection from "@/components/MissionSection";
 import AdvantagesSection from "@/components/AdvantagesSection";
 import ProcessSection from "@/components/ProcessSection";
 import CTASection from "@/components/CTASection";
+import useSmoothScroll from "@/hooks/use-smooth-scroll";
 
 const Index = () => {
+  useSmoothScroll();
+
   return (
     <main className="bg-background overflow-x-hidden">
       <Navbar />
@@ -14,10 +17,6 @@ const Index = () => {
       <div id="advantages"><AdvantagesSection /></div>
       <div id="process"><ProcessSection /></div>
       <div id="cta"><CTASection /></div>
-      <MissionSection />
-      <AdvantagesSection />
-      <ProcessSection />
-      <CTASection />
     </main>
   );
 };
