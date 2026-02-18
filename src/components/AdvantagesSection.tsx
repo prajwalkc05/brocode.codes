@@ -2,39 +2,43 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Code, Smartphone, Globe, Cpu, Palette, Shield } from "lucide-react";
+import InteractiveServicesBG from "./InteractiveServicesBG";
+import { useInteractiveBackground } from "@/hooks/useInteractiveBackground";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
-    icon: Smartphone,
-    title: "Mobile Development",
-    description: "Native and cross-platform mobile apps that deliver seamless user experiences across iOS and Android.",
+    icon: Code,
+    title: "Mini & Major Projects",
+    description: "Complete academic projects with documentation, source code, and presentation support.",
   },
   {
     icon: Globe,
-    title: "Web Applications",
-    description: "Scalable, responsive web apps built with cutting-edge frameworks and modern architecture.",
-  },
-  {
-    icon: Code,
-    title: "Custom Software",
-    description: "Tailor-made solutions designed to streamline your unique business processes and workflows.",
+    title: "Full Stack Projects",
+    description: "End-to-end web applications with modern frameworks, databases, and deployment.",
+    badge: "Popular",
   },
   {
     icon: Cpu,
-    title: "AI & Automation",
-    description: "Intelligent systems that automate tasks, analyze data, and drive smarter decisions.",
+    title: "Data Analytics Projects",
+    description: "Data visualization, machine learning models, and statistical analysis solutions.",
+  },
+  {
+    icon: Smartphone,
+    title: "AI & ML Projects",
+    description: "Machine learning models, AI applications, and intelligent systems with deployment.",
   },
   {
     icon: Palette,
-    title: "UI/UX Design",
-    description: "Human-centered design that turns complex ideas into intuitive, beautiful interfaces.",
+    title: "College Fest Websites",
+    description: "Event management platforms with registration, scheduling, and live updates.",
   },
   {
     icon: Shield,
-    title: "Cloud & DevOps",
-    description: "Robust cloud infrastructure and CI/CD pipelines for reliable, scalable deployments.",
+    title: "Reports & Viva Support",
+    description: "Professional documentation, technical reports, and presentation preparation.",
   },
 ];
 
@@ -70,20 +74,23 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-8 transition-all duration-300 ease-out"
+        className="relative h-full rounded-xl border p-8 transition-all duration-300 ease-out"
         style={{
           transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) ${isHovered ? "translateZ(20px)" : "translateZ(0)"}`,
           transformStyle: "preserve-3d",
+          borderColor: isHovered ? "hsl(var(--primary) / 0.5)" : "hsl(var(--border) / 0.5)",
+          backgroundColor: "hsl(var(--card) / 0.8)",
+          backdropFilter: "blur(8px)",
           boxShadow: isHovered
-            ? `${rotation.y * 0.5}px ${rotation.x * -0.5}px 30px hsl(var(--primary) / 0.15), 0 10px 40px hsl(var(--primary) / 0.1)`
+            ? `${rotation.y * 0.5}px ${rotation.x * -0.5}px 30px hsl(var(--primary) / 0.2), 0 10px 40px hsl(var(--primary) / 0.15), inset 0 0 60px hsl(var(--primary) / 0.05)`
             : "0 2px 10px hsl(var(--foreground) / 0.05)",
         }}
       >
         {/* Glow effect */}
         <div
-          className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500"
+          className="absolute inset-0 rounded-xl transition-opacity duration-500"
           style={{
-            opacity: isHovered ? 0.08 : 0,
+            opacity: isHovered ? 0.12 : 0,
             background: `radial-gradient(circle at ${50 + rotation.y * 2}% ${50 + rotation.x * 2}%, hsl(var(--primary)), transparent 70%)`,
           }}
         />
@@ -92,6 +99,11 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           className="relative z-10"
           style={{ transform: "translateZ(40px)", transformStyle: "preserve-3d" }}
         >
+          {service.badge && (
+            <span className="absolute -top-3 -right-3 px-3 py-1 bg-primary text-primary-foreground text-xs font-bold rounded-full">
+              {service.badge}
+            </span>
+          )}
           <div className={`inline-flex items-center justify-center w-14 h-14 rounded-lg mb-5 transition-all duration-500 ${isHovered ? "bg-primary text-primary-foreground scale-110" : "bg-muted text-muted-foreground"}`}>
             <Icon className="w-7 h-7" />
           </div>
@@ -113,6 +125,14 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
 
 const AdvantagesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { mousePosition, isInView, sectionRef: bgSectionRef } = useInteractiveBackground();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sectionRef.current) {
+      bgSectionRef.current = sectionRef.current;
+    }
+  }, [bgSectionRef]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -152,14 +172,16 @@ const AdvantagesSection = () => {
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden py-24 lg:py-32"
     >
-      <div className="absolute inset-0 bg-secondary/50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/30 to-background" />
+      <InteractiveServicesBG mousePosition={mousePosition} isInView={isInView} />
+      
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12">
         <div className="text-center mb-16">
           <h2 className="svc-title font-display text-5xl md:text-7xl font-bold text-foreground">
             Our Services
           </h2>
           <p className="svc-subtitle font-body text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">
-            End-to-end digital solutions engineered to accelerate your business growth.
+            Comprehensive academic project solutions tailored for students and institutions.
           </p>
           <div className="h-[2px] bg-primary/40 w-24 mx-auto mt-6" />
         </div>
@@ -168,6 +190,15 @@ const AdvantagesSection = () => {
           {services.map((service, i) => (
             <ServiceCard key={service.title} service={service} index={i} />
           ))}
+        </div>
+
+        <div className="flex justify-center mt-12">
+          <button
+            onClick={() => navigate('/services')}
+            className="px-8 py-3 border border-foreground/50 text-foreground font-body text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300"
+          >
+            View Details
+          </button>
         </div>
       </div>
     </section>

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navLinks = [
   { label: "Our Story", href: "/#hero" },
   { label: "Mission", href: "/#mission" },
-  { label: "Advantages", href: "/#advantages" },
+  { label: "Services", href: "/#advantages" },
   { label: "Process", href: "/#process" },
   { label: "Portfolio", href: "/#portfolio" },
   { label: "Contact", href: "/#cta" },
@@ -12,6 +13,9 @@ const navLinks = [
 
 const AnimatedNavbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -20,11 +24,19 @@ const AnimatedNavbar = () => {
   }, []);
 
   const scrollTo = (href: string) => {
-    if (href.startsWith('/#')) {
-      window.location.href = href;
+    const sectionId = href.replace('/#', '');
+    
+    if (location.pathname === '/') {
+      const el = document.getElementById(sectionId);
+      el?.scrollIntoView({ behavior: "smooth" });
     } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        el?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -73,7 +85,33 @@ const AnimatedNavbar = () => {
         >
           Contact
         </motion.button>
+
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden flex flex-col gap-1.5 w-6 h-6 justify-center"
+          aria-label="Toggle menu"
+        >
+          <span className={`h-0.5 w-full bg-foreground transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`h-0.5 w-full bg-foreground transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+          <span className={`h-0.5 w-full bg-foreground transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        </button>
       </div>
+
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/50">
+          <div className="flex flex-col py-4 px-6 gap-4">
+            {navLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => scrollTo(link.href)}
+                className="font-body text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors text-left"
+              >
+                {link.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </motion.nav>
   );
 };

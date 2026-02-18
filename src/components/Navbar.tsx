@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const navLinks = [
   { label: "Our Story", href: "#hero" },
   { label: "Mission", href: "#mission" },
-  { label: "Advantages", href: "#advantages" },
+  { label: "Services", href: "#advantages" },
   { label: "Process", href: "#process" },
   { label: "Portfolio", href: "#portfolio" },
   { label: "Contact", href: "#cta" },
@@ -16,6 +16,7 @@ const navLinks = [
 const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -33,6 +34,7 @@ const Navbar = () => {
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth" });
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -70,7 +72,33 @@ const Navbar = () => {
         >
           Contact
         </button>
+
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden flex flex-col gap-1.5 w-6 h-6 justify-center"
+          aria-label="Toggle menu"
+        >
+          <span className={`h-0.5 w-full bg-foreground transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`h-0.5 w-full bg-foreground transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+          <span className={`h-0.5 w-full bg-foreground transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        </button>
       </div>
+
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/50">
+          <div className="flex flex-col py-4 px-6 gap-4">
+            {navLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => scrollTo(link.href)}
+                className="font-body text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors text-left"
+              >
+                {link.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

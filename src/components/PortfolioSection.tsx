@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   { video: "/petwebsite.mp4", title: "Pet Website", category: "Website", desc: "Modern pet care platform with booking and services.", type: "video", link: "https://petwebsite.com" },
-  { video: "/richclub.mp4", title: "RichClub", category: "E-Commerce", desc: "Next-gen product marketplace with AI recommendations.", type: "video", link: "https://richclub.com" },
+  { video: "/richclub.mp4", title: "RichClub", category: "E-Commerce", desc: "Next-gen product marketplace with AI recommendations.", type: "video", link: "https://www.richclub01.com/" },
   { video: "/futuresense.mp4", title: "FutureSense", category: "Android App", desc: "AI-powered mobile application for future predictions.", type: "video" },
   { video: "/ui:uxdesign.mp4", title: "UI/UX Design", category: "Design Portfolio", desc: "Creative design showcase with modern interfaces.", type: "video" },
 ];
@@ -16,6 +16,7 @@ const projects = [
 const PortfolioSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [previewVideo, setPreviewVideo] = useState<string | null>(null);
+  const scrollPosRef = useRef(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,24 +45,28 @@ const PortfolioSection = () => {
 
   useEffect(() => {
     if (previewVideo) {
+      scrollPosRef.current = window.scrollY;
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollPosRef.current}px`;
       document.body.style.width = "100%";
     } else {
       document.body.style.overflow = "";
       document.body.style.position = "";
+      document.body.style.top = "";
       document.body.style.width = "";
+      window.scrollTo(0, scrollPosRef.current);
     }
     return () => {
       document.body.style.overflow = "";
       document.body.style.position = "";
+      document.body.style.top = "";
       document.body.style.width = "";
     };
   }, [previewVideo]);
 
   const handleViewAll = () => {
     navigate('/portfolio');
-    setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   return (
@@ -97,13 +102,7 @@ const PortfolioSection = () => {
                     muted
                     playsInline
                   />
-                ) : (
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                )}
+                ) : null}
                 <div className="absolute inset-0 bg-background/40 transition-opacity duration-500 group-hover:bg-background/70" />
               </div>
 

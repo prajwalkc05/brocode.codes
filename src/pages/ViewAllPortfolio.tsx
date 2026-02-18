@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import Footer from "@/components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ExternalLink, X } from "lucide-react";
 import allProjectsBg from "@/assets/allprojects.png";
 
@@ -11,14 +11,14 @@ const categories = [
     title: "Website", 
     projects: [
       { video: "/petwebsite.mp4", title: "Pet Website", desc: "Modern pet care platform with booking and services.", link: "https://petwebsite.com" },
-      { video: "/richclub.mp4", title: "RichClub", desc: "Next-gen product marketplace with AI recommendations.", link: "https://richclub.com" },
+      { video: "/richclub.mp4", title: "RichClub", desc: "Next-gen product marketplace with AI recommendations.", link: "https://www.richclub01.com/" },
     ]
   },
   { 
     id: "portfolio", 
     title: "Portfolio", 
     projects: [
-      { video: "/portflio.mp4", title: "Portfolio 1", desc: "Professional portfolio showcase with modern design.", link: "https://portfolio1.com" },
+      { video: "/portflio.mp4", title: "Portfolio 1", desc: "Professional portfolio showcase with modern design.", link: "https://portfolio-five-iota-86.vercel.app/" },
       { video: "/portfolio2.mp4", title: "Portfolio 2", desc: "Creative portfolio with interactive elements.", link: "https://portfolio2.com" },
     ]
   },
@@ -42,6 +42,7 @@ const categories = [
 
 const ViewAllPortfolio = () => {
   const [previewVideo, setPreviewVideo] = useState<string | null>(null);
+  const scrollPosRef = useRef(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,26 +50,27 @@ const ViewAllPortfolio = () => {
 
   useEffect(() => {
     if (previewVideo) {
+      scrollPosRef.current = window.scrollY;
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollPosRef.current}px`;
       document.body.style.width = "100%";
-    } else {
+    } else if (scrollPosRef.current > 0) {
+      const scrollPos = scrollPosRef.current;
       document.body.style.overflow = "";
       document.body.style.position = "";
+      document.body.style.top = "";
       document.body.style.width = "";
+      window.scrollTo(0, scrollPos);
+      scrollPosRef.current = 0;
     }
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
-    };
   }, [previewVideo]);
 
   return (
     <div className="bg-background relative">
       <div className="fixed inset-0 z-0">
         <img src={allProjectsBg} alt="Background" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-background/90" />
+        <div className="absolute inset-0 bg-background/85" />
       </div>
       
       <div className="relative z-10">
