@@ -2,14 +2,24 @@ import { useState, useRef } from 'react';
 import { sendContactEmail } from '@/services/emailService';
 import { useToast } from '@/hooks/use-toast';
 
+const SERVICES = [
+  'Website Development',
+  'Mobile App Development',
+  'UI/UX Design',
+  'E-Commerce Solutions',
+  'AI/ML Projects',
+  'Data Analytics',
+  'Other'
+];
+
 export const useEmailForm = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '', service: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const lastSubmitTime = useRef(0);
   const { toast } = useToast();
 
   const validateForm = () => {
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim() || !formData.service) {
       toast({
         title: 'Validation Error',
         description: 'Please fill in all fields',
@@ -54,6 +64,8 @@ export const useEmailForm = () => {
 
     if (!validateForm() || !checkRateLimit()) return;
 
+    console.log('Form data being sent:', formData); // Debug log
+
     setIsSubmitting(true);
 
     const result = await sendContactEmail(formData);
@@ -63,7 +75,7 @@ export const useEmailForm = () => {
         title: 'Message Sent!',
         description: "We'll get back to you soon. Check your email for confirmation.",
       });
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '', service: '' });
       lastSubmitTime.current = Date.now();
     } else {
       toast({
@@ -85,5 +97,6 @@ export const useEmailForm = () => {
     isSubmitting,
     handleSubmit,
     updateField,
+    services: SERVICES,
   };
 };

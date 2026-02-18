@@ -5,7 +5,7 @@ import { useEmailForm } from "@/hooks/useEmailForm";
 import contactBg from "@/assets/contact-bg.jpeg";
 
 const ContactForm = () => {
-  const { formData, isSubmitting, handleSubmit, updateField } = useEmailForm();
+  const { formData, isSubmitting, handleSubmit, updateField, services } = useEmailForm();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
 
@@ -116,6 +116,35 @@ const ContactForm = () => {
                     required
                     disabled={isSubmitting}
                   />
+                </div>
+
+                <div className="relative">
+                  <input
+                    type="tel"
+                    placeholder="Phone"
+                    value={formData.phone}
+                    onChange={(e) => updateField('phone', e.target.value)}
+                    className="w-full px-4 py-3 bg-background/70 border border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all rounded-lg"
+                    required
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <div className="relative">
+                  <select
+                    value={formData.service}
+                    onChange={(e) => updateField('service', e.target.value)}
+                    className="w-full px-4 py-3 bg-background/70 border border-border/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all rounded-lg"
+                    required
+                    disabled={isSubmitting}
+                  >
+                    <option value="">Select Service</option>
+                    {services.map((service) => (
+                      <option key={service} value={service}>
+                        {service}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="relative">

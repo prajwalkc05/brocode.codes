@@ -12,10 +12,11 @@ export const sendContactEmail = async (formData) => {
       SERVICE_ID,
       ADMIN_TEMPLATE_ID,
       {
-        from_name: formData.name,
-        from_email: formData.email,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
         message: formData.message,
-        to_name: 'BroCode Team',
       },
       PUBLIC_KEY
     );
@@ -25,8 +26,9 @@ export const sendContactEmail = async (formData) => {
       SERVICE_ID,
       REPLY_TEMPLATE_ID,
       {
-        to_name: formData.name,
-        to_email: formData.email,
+        name: formData.name,
+        email: formData.email,
+        service: formData.service,
         message: formData.message,
       },
       PUBLIC_KEY
