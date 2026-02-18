@@ -2,21 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink, X } from "lucide-react";
-import p1 from "@/assets/portfolio-1.jpg";
-import p4 from "@/assets/portfolio-4.jpg";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-  { img: p1, title: "FinTrack", category: "Fintech", desc: "Mobile banking dashboard with real-time analytics.", type: "image" },
+  { video: "/petwebsite.mp4", title: "Pet Website", category: "Website", desc: "Modern pet care platform with booking and services.", type: "video", link: "https://petwebsite.com" },
   { video: "/richclub.mp4", title: "RichClub", category: "E-Commerce", desc: "Next-gen product marketplace with AI recommendations.", type: "video", link: "https://richclub.com" },
   { video: "/futuresense.mp4", title: "FutureSense", category: "Android App", desc: "AI-powered mobile application for future predictions.", type: "video" },
-  { img: p4, title: "ChatNova", category: "AI Platform", desc: "Conversational AI interface for enterprise teams.", type: "image" },
+  { video: "/ui:uxdesign.mp4", title: "UI/UX Design", category: "Design Portfolio", desc: "Creative design showcase with modern interfaces.", type: "video" },
 ];
 
 const PortfolioSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [previewVideo, setPreviewVideo] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -45,13 +45,24 @@ const PortfolioSection = () => {
   useEffect(() => {
     if (previewVideo) {
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
     };
   }, [previewVideo]);
+
+  const handleViewAll = () => {
+    navigate('/portfolio');
+    setTimeout(() => window.scrollTo(0, 0), 100);
+  };
 
   return (
     <>
@@ -121,6 +132,15 @@ const PortfolioSection = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-12">
+          <button
+            onClick={handleViewAll}
+            className="px-8 py-3 border border-foreground/50 text-foreground font-body text-sm tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300"
+          >
+            View All Categories
+          </button>
         </div>
       </div>
     </section>

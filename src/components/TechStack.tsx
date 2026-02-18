@@ -11,7 +11,7 @@ const technologies = [
   { name: "Angular", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" },
   { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
   { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain-wordmark.svg" },
+  { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" },
   { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
   { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
   { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
@@ -103,7 +103,7 @@ const TechStack = () => {
               key={i}
               className="inline-flex items-center gap-3 px-8 py-4 border border-border bg-card backdrop-blur-sm hover:border-primary/50 transition-colors min-w-fit"
             >
-              <img src={tech.logo} alt={tech.name} className="w-8 h-8 object-contain" style={{ filter: 'brightness(0) saturate(100%) invert(1)' }} />
+              <img src={tech.logo} alt={tech.name} className="w-8 h-8 object-contain" />
               <span className="font-body text-sm tracking-wider uppercase">{tech.name}</span>
             </div>
           ))}

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const navLinks = [
-  { label: "Our Story", href: "#hero" },
-  { label: "Mission", href: "#mission" },
-  { label: "Advantages", href: "#advantages" },
-  { label: "Process", href: "#process" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Contact", href: "#cta" },
+  { label: "Our Story", href: "/#hero" },
+  { label: "Mission", href: "/#mission" },
+  { label: "Advantages", href: "/#advantages" },
+  { label: "Process", href: "/#process" },
+  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Contact", href: "/#cta" },
 ];
 
 const AnimatedNavbar = () => {
@@ -20,7 +20,11 @@ const AnimatedNavbar = () => {
   }, []);
 
   const scrollTo = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith('/#')) {
+      window.location.href = href;
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -34,7 +38,7 @@ const AnimatedNavbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         <motion.button
-          onClick={() => scrollTo("#hero")}
+          onClick={() => window.location.href = '/'}
           className="font-display text-xl font-bold tracking-[0.15em] uppercase text-foreground"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -59,7 +63,7 @@ const AnimatedNavbar = () => {
         </div>
 
         <motion.button
-          onClick={() => scrollTo("#cta")}
+          onClick={() => scrollTo(navLinks[navLinks.length - 1].href)}
           className="hidden md:block px-5 py-2 border border-foreground/50 text-foreground font-body text-xs tracking-wider uppercase"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
