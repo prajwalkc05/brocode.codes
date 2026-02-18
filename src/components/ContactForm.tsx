@@ -53,7 +53,7 @@ const ContactForm = () => {
             </motion.a>
 
             <motion.a
-              href="mailto:contact@brocode.com"
+              href="mailto:brocodes.codes@gmail.com"
               className="flex items-center gap-4 p-6 backdrop-blur-md bg-card/80 border border-border/50 hover:border-blue-500/50 transition-all group shadow-lg hover:shadow-blue-500/20 relative overflow-hidden"
               whileHover={{ x: 10, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -64,7 +64,7 @@ const ContactForm = () => {
               </div>
               <div className="flex-1 relative z-10">
                 <h3 className="font-bold mb-1 text-foreground">Email</h3>
-                <p className="text-sm text-muted-foreground">contact@brocode.com</p>
+                <p className="text-sm text-muted-foreground">brocodes.codes@gmail.com</p>
               </div>
             </motion.a>
 

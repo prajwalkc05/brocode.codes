@@ -25,7 +25,7 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Connect</h4>
             <div className="space-y-2 text-sm text-muted-foreground">
-              <a href="mailto:contact@brocode.com" className="block hover:text-foreground transition-colors">contact@brocode.com</a>
+              <a href="mailto:brocodes.codes@gmail.com" className="block hover:text-foreground transition-colors">brocodes.codes@gmail.com</a>
               <a href="tel:+918310605144" className="block hover:text-foreground transition-colors">+91 8310605144</a>
             </div>
           </div>
