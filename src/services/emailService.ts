@@ -5,9 +5,16 @@ const ADMIN_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID;
 const REPLY_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_REPLY_TEMPLATE_ID;
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-export const sendContactEmail = async (formData) => {
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+}
+
+export const sendContactEmail = async (formData: ContactFormData) => {
   try {
-    // Send admin notification
     await emailjs.send(
       SERVICE_ID,
       ADMIN_TEMPLATE_ID,
@@ -21,7 +28,6 @@ export const sendContactEmail = async (formData) => {
       PUBLIC_KEY
     );
 
-    // Send auto-reply to user
     await emailjs.send(
       SERVICE_ID,
       REPLY_TEMPLATE_ID,
@@ -35,8 +41,9 @@ export const sendContactEmail = async (formData) => {
     );
 
     return { success: true };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Email send failed:', error);
-    return { success: false, error: error.text || 'Failed to send message' };
+    const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
+    return { success: false, error: errorMessage };
   }
 };
